@@ -1,17 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
-export default class extends Controller {
+export class TimezoneController extends Controller {
     static targets = ["time"]
 
-    connect() {
-        this.convertToLocalTime();
+    timeTargetConnected(element) {
+        this._convertToLocalTime(element);
     }
 
-    convertToLocalTime() {
-        this.timeTargets.forEach((element) => {
-            const utcTime = new Date(element.dataset.utcTime)
-            const newTime = utcTime.toLocaleString("en-US", {timeZone: "America/New_York"})
-            element.innerText = newTime
-        });
+    _convertToLocalTime(element) {
+        const utcTime = new Date(element.dataset.foo)
+        const newTime = utcTime.toLocaleString("pl-PL", { timeZone: "Europe/Warsaw" })
+        element.innerText = newTime
     }
 }
